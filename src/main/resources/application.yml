@@ -19,7 +19,5 @@ spring:
         # BJ
         cluster-name: BJ
         # 元数据信息配置文件配置,也可以nacos控制台配置，版本控制
-        # metadata:
-          # instance: c
-          # haha: hehe
-          # version: v1
+        metadata:
+          version: v1
