@@ -15,7 +15,7 @@ spring:
         # 服务注册地址
         server-addr: localhost:8848
         # 命名空间 dev
-        # namespace: 6b0e9c31-3145-411d-bf5f-439f90a03ad2
+        namespace: 6b0e9c31-3145-411d-bf5f-439f90a03ad2
         # BJ
         cluster-name: BJ
         # 元数据信息配置文件配置,也可以nacos控制台配置，版本控制
