@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -21,3 +21,5 @@ spring:
         # 元数据信息配置文件配置,也可以nacos控制台配置，版本控制
         metadata:
           version: v1
+rocketmq:
+  name-server: 127.0.0.1:9876
