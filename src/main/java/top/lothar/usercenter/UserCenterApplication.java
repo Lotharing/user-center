@@ -6,6 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Sink;
 import tk.mybatis.spring.annotation.MapperScan;
+import top.lothar.usercenter.rocketmq.MySink;
 
 /**
  * @Project user-center 用户中心
@@ -14,10 +15,10 @@ import tk.mybatis.spring.annotation.MapperScan;
  *
  * {@link MapperScan}扫描MySQL这些包里的接口
  */
-@MapperScan("top.lothar")
+@MapperScan("top.lothar.usercenter.dao")
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableBinding(Sink.class)
+@EnableBinding({Sink.class, MySink.class})
 public class UserCenterApplication {
 
     public static void main(String[] args) {

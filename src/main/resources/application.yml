@@ -31,6 +31,10 @@ spring:
           destination: stream-test-topic
           # 用rocketmq必须设置
           group: binder-group
+        my-input:
+          destination: stream-my-topic
+          # 用rocketmq必须设置
+          group: my-group
 
 # rocket消息队列
 rocketmq:
