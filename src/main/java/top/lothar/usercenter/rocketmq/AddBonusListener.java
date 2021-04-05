@@ -1,5 +1,6 @@
 package top.lothar.usercenter.rocketmq;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Date;
  * @author LuTong.Zhao
  * @Date 2021/3/31 19:54
  */
+@Slf4j
 @Service
 @RocketMQMessageListener(consumerGroup = "consumer-group", topic = "add-bonus")
 public class AddBonusListener implements RocketMQListener<UserAddBonusMsgDTO> {
@@ -48,5 +50,6 @@ public class AddBonusListener implements RocketMQListener<UserAddBonusMsgDTO> {
         bonusEventLog.setValue(bonus);
         bonusEventLog.setEvent("CONTRIBUTE");
         this.bonusEventLogMapper.insert(bonusEventLog);
+        log.info("RocketMQ 处理的分布式事务积分任务处理完毕.... ");
     }
 }
