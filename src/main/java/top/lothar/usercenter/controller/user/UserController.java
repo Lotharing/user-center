@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.lothar.usercenter.auth.CheckLogin;
 import top.lothar.usercenter.domain.dto.user.JwtTokenRespDTO;
 import top.lothar.usercenter.domain.dto.user.LoginRespDTO;
 import top.lothar.usercenter.domain.dto.user.UserLoginDTO;
@@ -38,6 +39,7 @@ public class UserController {
     private JwtOperator jwtOperator;
 
     @GetMapping("/{id}")
+    @CheckLogin
     public User findById(@PathVariable Integer id){
         log.info("我被请求了....");
         return this.userService.findById(id);
