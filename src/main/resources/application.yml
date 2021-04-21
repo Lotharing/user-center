@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -45,6 +45,14 @@ logging:
   level:
     # 只打印error级别的日志
     com.alibaba.nacos: error
+
+
+#JWT密钥配置
+jwt:
+  secret: MQj3al5#jH&9@notebylothar
+  # 有效期，单位秒，默认2周
+  expire-time-in-second: 1209600
+
 
 
 
