@@ -1,6 +1,14 @@
 server:
   port: 8080
 spring:
+  zipkin:
+    base-url: localhost:9411
+    # 关闭服务发现,解决异常 http://www.imooc.com/article/291578
+    discoveryClientEnabled: false
+  sleuth:
+    sampler:
+      # 抽样率1.0 = 100% 上报所有,默认1.0 , 抽样降低对应用性能对影响
+      probability: 1.0
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/user_center?useSSL=false
@@ -52,7 +60,6 @@ jwt:
   secret: MQj3al5#jH&9@notebylothar
   # 有效期，单位秒，默认2周
   expire-time-in-second: 1209600
-
 
 
 

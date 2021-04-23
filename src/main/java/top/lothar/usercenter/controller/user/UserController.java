@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/{id}")
     @CheckLogin
     public User findById(@PathVariable Integer id){
-        log.info("我被请求了....");
+        log.info("接口: {"+"用户中心/user/id"+"}请求成功～");
         return this.userService.findById(id);
     }
 
