@@ -45,7 +45,7 @@ logging:
   level:
     # 只打印error级别的日志
     com.alibaba.nacos: error
-
+    org.spring.framwork.cloud.sleuth: debug
 
 #JWT密钥配置
 jwt:
