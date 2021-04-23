@@ -2,9 +2,11 @@ server:
   port: 8080
 spring:
   zipkin:
-    base-url: localhost:9411
+    base-url: http://localhost:9411/
     # 关闭服务发现,解决异常 http://www.imooc.com/article/291578
     discoveryClientEnabled: false
+    # 这个启动命令可以持久化数据到ES当然也支持mysql不过要注意性能问题 STORAGE_TYPE=elasticsearch ES_HOST=localhost:9200 java -jar
+    # 数据持久化之后发现 服务依赖图不能看，需要下载github上官方zipKin-dependency包,环境变量「STORAGE_TYPE, ES_HOST, ES_INDEX默认zipkin」
   sleuth:
     sampler:
       # 抽样率1.0 = 100% 上报所有,默认1.0 , 抽样降低对应用性能对影响
@@ -60,6 +62,5 @@ jwt:
   secret: MQj3al5#jH&9@notebylothar
   # 有效期，单位秒，默认2周
   expire-time-in-second: 1209600
-
 
 
