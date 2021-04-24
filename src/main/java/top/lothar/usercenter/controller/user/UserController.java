@@ -2,6 +2,7 @@ package top.lothar.usercenter.controller.user;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,20 @@ public class UserController {
                 .build();
     }
 
-
+    /**
+     * 个人主页信息展示
+     * @return
+     */
+    @CheckLogin
+    @GetMapping("/me")
+    public User getMe(@RequestHeader("X-Token")String token){
+        User user = null;
+        if (token != null){
+            Claims claims = jwtOperator.getClaimsFromToken(token);
+            Integer userId = (Integer) claims.get("id");
+            user = this.userService.findById(userId);
+        }
+        return user;
+    }
 
 }
