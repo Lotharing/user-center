@@ -43,13 +43,21 @@ public class AddBonusListener implements RocketMQListener<UserAddBonusMsgDTO> {
         user.setBonus(user.getBonus() + bonus);
         this.userMapper.updateByPrimaryKey(user);
         // 2.记录积分日志到 bonus_event_log
-        BonusEventLog bonusEventLog = new BonusEventLog();
-        bonusEventLog.setUserId(userId);
-        bonusEventLog.setCreateTime(new Date());
-        bonusEventLog.setDescription("投稿加积分");
-        bonusEventLog.setValue(bonus);
-        bonusEventLog.setEvent("CONTRIBUTE");
-        this.bonusEventLogMapper.insert(bonusEventLog);
+//        BonusEventLog bonusEventLog = new BonusEventLog();
+//        bonusEventLog.setUserId(userId);
+//        bonusEventLog.setCreateTime(new Date());
+//        bonusEventLog.setDescription("投稿加积分");
+//        bonusEventLog.setValue(bonus);
+//        bonusEventLog.setEvent("CONTRIBUTE");
+        this.bonusEventLogMapper.insert(
+                BonusEventLog.builder()
+                    .userId(userId)
+                    .createTime(new Date())
+                    .description("投稿加积分")
+                    .value(bonus)
+                    .event("CONTRIBUTE")
+                .build()
+        );
         log.info("RocketMQ 处理的分布式事务积分任务处理完毕.... ");
     }
 }

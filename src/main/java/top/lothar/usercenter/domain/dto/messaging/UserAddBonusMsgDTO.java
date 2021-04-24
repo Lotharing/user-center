@@ -20,4 +20,8 @@ public class UserAddBonusMsgDTO {
     private Integer userId;
     /** 加的积分 **/
     private Integer bonus;
+    /** 事件 **/
+    private String event;
+    /** 积分描述 **/
+    private String description;
 }
