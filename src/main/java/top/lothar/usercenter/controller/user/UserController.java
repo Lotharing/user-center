@@ -5,18 +5,18 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.lothar.usercenter.auth.CheckLogin;
-import top.lothar.usercenter.domain.dto.user.JwtTokenRespDTO;
-import top.lothar.usercenter.domain.dto.user.LoginRespDTO;
-import top.lothar.usercenter.domain.dto.user.UserLoginDTO;
-import top.lothar.usercenter.domain.dto.user.UserRespDTO;
+import top.lothar.usercenter.domain.dto.user.*;
 import top.lothar.usercenter.domain.entity.user.User;
+import top.lothar.usercenter.feignclient.ContentCenterFeignClient;
 import top.lothar.usercenter.service.user.UserService;
 import top.lothar.usercenter.util.JwtOperator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +38,9 @@ public class UserController {
 
     @Autowired
     private JwtOperator jwtOperator;
+
+    @Autowired
+    private ContentCenterFeignClient contentCenterFeignClient;
 
     @GetMapping("/{id}")
     @CheckLogin
@@ -114,6 +117,21 @@ public class UserController {
             user = this.userService.findById(userId);
         }
         return user;
+    }
+
+    /**
+     * 我的投稿-内容中心接口
+     * @param token
+     * @return
+     */
+    @GetMapping("/contributions")
+    public List<ShareDTO> myContributions(@RequestHeader("X-Token")String token){
+        Integer userId = null;
+        if (StringUtils.isNotBlank(token)) {
+            Claims claims = jwtOperator.getClaimsFromToken(token);
+            userId = (Integer) claims.get("id");
+        }
+        return contentCenterFeignClient.getMyContributions(userId);
     }
 
 }
