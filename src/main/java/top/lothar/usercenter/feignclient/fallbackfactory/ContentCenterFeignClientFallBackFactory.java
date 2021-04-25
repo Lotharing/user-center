@@ -26,6 +26,11 @@ public class ContentCenterFeignClientFallBackFactory implements FallbackFactory<
             public List<ShareDTO> getMyContributions(Integer userId) {
                 return null;
             }
+
+            @Override
+            public List<ShareDTO> myExchange(Integer userId) {
+                return null;
+            }
         };
     }
 }

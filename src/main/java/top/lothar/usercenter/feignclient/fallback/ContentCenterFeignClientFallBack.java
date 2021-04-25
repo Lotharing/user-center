@@ -19,4 +19,9 @@ public class ContentCenterFeignClientFallBack implements ContentCenterFeignClien
     public List<ShareDTO> getMyContributions(Integer userId) {
         return null;
     }
+
+    @Override
+    public List<ShareDTO> myExchange(Integer userId) {
+        return null;
+    }
 }

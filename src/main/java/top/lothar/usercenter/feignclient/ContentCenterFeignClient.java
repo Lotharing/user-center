@@ -21,10 +21,21 @@ public interface ContentCenterFeignClient {
 
     /**
      * 内容中心-我的投稿
-     * http://content-center/users/{id}
+     * http://content-center/shares/contributions
      * @param userId
      * @return
      */
     @GetMapping("/shares/contributions")
     List<ShareDTO> getMyContributions(@RequestParam Integer userId);
+
+    /**
+     * 内容中心-我的兑换
+     * http://content-center/shares/my
+     * @param userId
+     * @return
+     */
+    @GetMapping("/shares/my")
+    List<ShareDTO> myExchange(@RequestParam Integer userId);
+
+
 }

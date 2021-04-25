@@ -150,4 +150,19 @@ public class UserController {
         return userService.getMyBonusEvent(userId);
     }
 
+    /**
+     * 我的兑换接口
+     * @param token
+     * @return
+     */
+    @GetMapping("/my")
+    public List<ShareDTO> myExchanges(@RequestHeader("X-Token")String token){
+        Integer userId = null;
+        if (StringUtils.isNotBlank(token)) {
+            Claims claims = jwtOperator.getClaimsFromToken(token);
+            userId = (Integer) claims.get("id");
+        }
+        return contentCenterFeignClient.myExchange(userId);
+    }
+
 }
