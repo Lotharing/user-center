@@ -121,6 +121,22 @@ public class UserController {
     }
 
     /**
+     * 签到
+     * @param token
+     * @return
+     */
+    @GetMapping("/sign")
+    public User sign(@RequestHeader("X-Token")String token){
+        User user = null;
+        if (token != null){
+            Claims claims = jwtOperator.getClaimsFromToken(token);
+            Integer userId = (Integer) claims.get("id");
+            user = this.userService.sign(userId);
+        }
+        return user;
+    }
+
+    /**
      * 我的投稿-内容中心接口
      * @param token
      * @return

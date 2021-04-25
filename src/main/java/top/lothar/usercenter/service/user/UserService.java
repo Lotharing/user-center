@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import top.lothar.usercenter.dao.bonus.BonusEventLogMapper;
 import top.lothar.usercenter.dao.user.UserMapper;
 import top.lothar.usercenter.domain.dto.messaging.UserAddBonusMsgDTO;
-import top.lothar.usercenter.domain.dto.user.LoginRespDTO;
 import top.lothar.usercenter.domain.dto.user.UserLoginDTO;
 import top.lothar.usercenter.domain.entity.bonus.BonusEventLog;
 import top.lothar.usercenter.domain.entity.user.User;
@@ -34,6 +33,37 @@ public class UserService {
     public User findById(Integer id){
         // select * from user where id = id
         return this.userMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 签到
+     * @param userId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public User sign(Integer userId){
+        //TODO 0. 查询今日是否已经签到
+
+        // 1. 签到写入积分日志
+        bonusEventLogMapper.insertSelective(
+                BonusEventLog.builder()
+                    .userId(userId)
+                    .value(30)
+                    .event("SIGN")
+                    .createTime(new Date())
+                    .description("签到获取积分")
+                .build()
+        );
+        // 获取当前积分信息
+        User user = userMapper.selectOne(
+                User.builder().id(userId)
+                .build()
+        );
+        user.setBonus(user.getBonus() + 30);
+        // 2. 增加积分
+        userMapper.updateByPrimaryKey(user);
+        log.info("用户 {} 签到成功...","获得{}积分",user.getWxNickname(),30);
+        return user;
     }
 
     /**
