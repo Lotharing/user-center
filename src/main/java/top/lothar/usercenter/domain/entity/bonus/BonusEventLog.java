@@ -3,15 +3,14 @@ package top.lothar.usercenter.domain.entity.bonus;
 import java.util.Date;
 import javax.persistence.*;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Builder
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "bonus_event_log")
 public class BonusEventLog {
     /**
@@ -40,6 +39,7 @@ public class BonusEventLog {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @Column(name = "create_time")
     private Date createTime;
 

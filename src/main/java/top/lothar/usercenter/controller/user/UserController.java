@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.lothar.usercenter.auth.CheckLogin;
 import top.lothar.usercenter.domain.dto.user.*;
+import top.lothar.usercenter.domain.entity.bonus.BonusEventLog;
 import top.lothar.usercenter.domain.entity.user.User;
 import top.lothar.usercenter.feignclient.ContentCenterFeignClient;
 import top.lothar.usercenter.service.user.UserService;
@@ -132,6 +133,21 @@ public class UserController {
             userId = (Integer) claims.get("id");
         }
         return contentCenterFeignClient.getMyContributions(userId);
+    }
+
+    /**
+     * 我的积分明细
+     * @param token
+     * @return
+     */
+    @GetMapping("/bonus-logs")
+    public List<BonusEventLog> getBonusDetail(@RequestHeader("X-Token")String token){
+        Integer userId = null;
+        if (StringUtils.isNotBlank(token)) {
+            Claims claims = jwtOperator.getClaimsFromToken(token);
+            userId = (Integer) claims.get("id");
+        }
+        return userService.getMyBonusEvent(userId);
     }
 
 }

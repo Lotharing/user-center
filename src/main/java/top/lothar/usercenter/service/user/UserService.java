@@ -13,6 +13,7 @@ import top.lothar.usercenter.domain.entity.bonus.BonusEventLog;
 import top.lothar.usercenter.domain.entity.user.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <h1></h1>
@@ -33,6 +34,19 @@ public class UserService {
     public User findById(Integer id){
         // select * from user where id = id
         return this.userMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 我的积分记录
+     * @param userId
+     * @return
+     */
+    public List<BonusEventLog> getMyBonusEvent(Integer userId){
+        return this.bonusEventLogMapper.select(
+                BonusEventLog.builder()
+                    .userId(userId)
+                .build()
+        );
     }
 
     /**
